@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PanResponder, View, Dimensions, Text, ScrollView } from 'react-native'
+import { PanResponder, View, Dimensions, Text, ScrollView,TouchableHighlight } from 'react-native'
 import style from './Style/VideoRangeTrimmer'
 import { msToHuman } from '../../../Helpers';
 import { times } from 'lodash'
 import Svg,{
     Line,
     Text as SvgText,
+
 } from 'react-native-svg';
 
 const MOVE_TYPES  = {
@@ -220,9 +221,9 @@ class VideoRangeTrimmer extends React.Component {
     }
 
     render() {
-
-        return <ScrollView ref={ref => this.scrollView = ref} horizontal={true} scrollEnabled={this.state.moveType === false} onScrollEndDrag={this.handleScroll.bind(this)}>
-            <View style={style.wrapper} {...this._panResponder.panHandlers}>
+        return(
+        <ScrollView ref={ref => this.scrollView = ref} horizontal={true} scrollEnabled={this.state.moveType === false} onScrollEndDrag={this.handleScroll.bind(this)}>
+            <View style={[style.wrapper],{backgroundColor:'rgb(255,0,0)',height:70}} {...this._panResponder.panHandlers}>
             <Text style={[style.rangeText,{ left: this.state.rangeStyle.left }]}>{msToHuman(this.state.range.begin)}</Text>
                 <View  style={style.wrapperSeekBar}>
                     <View style={[style.marker, {left: this.state.rangeStyle.left, backgroundColor: this.state.rangeStyle.borderLeftColor}]} />
@@ -234,6 +235,8 @@ class VideoRangeTrimmer extends React.Component {
                 {this.renderScale()}
         </View>
         </ScrollView>
+      );
+
     }
 
     renderScale(){
